@@ -4,40 +4,19 @@ import dash_html_components as html
 import plotly.graph_objs as go
 
 ########### Define your variables
-beers=['Chesapeake Stout', 'Snake Dog IPA', 'Imperial Porter', 'Double Dog IPA']
-ibu_values=[35, 60, 85, 75]
-abv_values=[5.4, 7.1, 9.2, 4.3]
-color1='darkred'
-color2='orange'
-mytitle='Beer Comparison'
-tabtitle='beer!'
-myheading='Flying Dog Beers'
-label1='IBU'
-label2='ABV'
-githublink='https://github.com/austinlasseter/flying-dog-beers'
-sourceurl='https://www.flyingdog.com/beers/'
+# load schedule data from url
+schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
+
+# create datetime object from Standardized_Date field
+schedule['Datetime'] = pd.to_datetime(schedule['Standardized_Date'])
+
+# make new datatime column the index
+schedule.set_index(['Datetime'], inplace=True)
+
+githublink='https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules'
+sourceurl='https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules'
 
 ########### Set up the chart
-bitterness = go.Bar(
-    x=beers,
-    y=ibu_values,
-    name=label1,
-    marker={'color':color1}
-)
-alcohol = go.Bar(
-    x=beers,
-    y=abv_values,
-    name=label2,
-    marker={'color':color2}
-)
-
-beer_data = [bitterness, alcohol]
-beer_layout = go.Layout(
-    barmode='group',
-    title = mytitle
-)
-
-beer_fig = go.Figure(data=beer_data, layout=beer_layout)
 
 
 ########### Initiate the app
@@ -47,17 +26,42 @@ server = app.server
 app.title=tabtitle
 
 ########### Set up the layout
-app.layout = html.Div(children=[
-    html.H1(myheading),
-    dcc.Graph(
-        id='flyingdog',
-        figure=beer_fig
-    ),
-    html.A('Code on Github', href=githublink),
-    html.Br(),
-    html.A('Data Source', href=sourceurl),
-    ]
+# setup dropdown for game type
+type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home')
+
+# set colors/style
+colors = {
+    'background': '#0c2340',
+    'text': '#c99700'
+}
+
+# setup layout
+app.layout = html.Div(style={'backgroundColor': colors['background']}, 
+                      children=[
+                                html.H1(
+                                    children='Notre Dame Football Schedule Dashboard',
+                                    style = {
+                                        'textAlign': 'center',
+                                        'color': colors['text'],
+                                        'font': 'Arial'
+                                    }),
+                                html.Div([
+                                          type_dropdown,
+                                          dcc.Graph(id = 'schedule-points'),
+                                          ])
+                                ])
+
+# set up callback for interactivity
+@app.callback(
+    Output(component_id = 'schedule-points', component_property='figure'), 
+    Input(component_id = type_dropdown, component_property='value')
 )
+
+# setup function to generate plot
+def update_graph(game_type):
+  subset = schedule[schedule['Game_Type'] == game_type]
+  bar_fig = px.bar(subset, x='Season', y='Pts', color_discrete_sequence=['#00843d'], title=f'Number of Points Over Time For {game_type}')
+  return bar_fig
 
 if __name__ == '__main__':
     app.run_server()
