@@ -7,8 +7,8 @@ import dash_bootstrap_components as dbc
 ##### Initiate the app
 
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-server = app.server
 app = dash.Dash(__name__)
+server = app.server
 
 ##### Load Data and Setup Layout
 
