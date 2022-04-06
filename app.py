@@ -4,23 +4,17 @@ import dash_html_components as html
 import plotly.graph_objs as go
 import pandas as pd
 
-########### Define your variables
-# load schedule data from url
-schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
+##### Initiate the app
 
-githublink='https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules'
-sourceurl='https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules'
-
-########### Set up the chart
-
-
-########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-app.title='Notre Dame Football Schedule Explorer'
 
-########### Set up the layout
+##### Load Data and Setup Layout
+
+# load schedule data from url
+schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
+
 # setup dropdown for game type
 type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home')
 
@@ -60,4 +54,4 @@ def update_graph(game_type):
 
 # run app
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
