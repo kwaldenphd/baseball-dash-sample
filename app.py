@@ -6,9 +6,9 @@ import dash_bootstrap_components as dbc
 
 ##### Initiate the app
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 server = app.server
+app = dash.Dash(__name__)
 
 ##### Load Data and Setup Layout
 
@@ -52,4 +52,5 @@ def update_graph(game_type):
   return bar_fig
 
 # run app
-app.run_server(debug=True)
+if __name__ == '__main__':
+    app.run_server(debug=True)
