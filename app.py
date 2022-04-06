@@ -8,12 +8,6 @@ import pandas as pd
 # load schedule data from url
 schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
 
-# create datetime object from Standardized_Date field
-schedule['Datetime'] = pd.to_datetime(schedule['Standardized_Date'])
-
-# make new datatime column the index
-schedule.set_index(['Datetime'], inplace=True)
-
 githublink='https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules'
 sourceurl='https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules'
 
@@ -24,7 +18,7 @@ sourceurl='https://github.com/kwaldenphd/football-structured-data/blob/main/back
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-app.title=tabtitle
+app.title='Notre Dame Football Schedule Explorer'
 
 ########### Set up the layout
 # setup dropdown for game type
@@ -64,5 +58,6 @@ def update_graph(game_type):
   bar_fig = px.bar(subset, x='Season', y='Pts', color_discrete_sequence=['#00843d'], title=f'Number of Points Over Time For {game_type}')
   return bar_fig
 
+# run app
 if __name__ == '__main__':
     app.run_server()
