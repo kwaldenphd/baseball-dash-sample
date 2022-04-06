@@ -39,7 +39,6 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                                           dcc.Graph(id = 'schedule-points'),
                                           ])
                                 ])
-
 # set up callback for interactivity
 @app.callback(
     Output(component_id = 'schedule-points', component_property='figure'), 
@@ -53,5 +52,4 @@ def update_graph(game_type):
   return bar_fig
 
 # run app
-if __name__ == '__main__':
-    app.run_server(debug=True)
+app.run_server(debug=True)
