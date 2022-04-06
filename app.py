@@ -26,13 +26,13 @@ colors = {
 }
 
 # setup layout
-app.layout = html.Div(style={'backgroundColor': colors['background']}, 
+app.layout = html.Div(style={'backgroundColor': colors['background]}, 
                       children=[
                                 html.H1(
                                     children='Notre Dame Football Schedule Dashboard',
                                     style = {
                                         'textAlign': 'center',
-                                        'color': colors['text'],
+                                        'color' : colors['text'],
                                         'font': 'Arial'
                                     }),
                                 html.Div([
@@ -49,7 +49,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
 # setup function to generate plot
 def update_graph(game_type):
   subset = schedule[schedule['Game_Type'] == game_type]
-  bar_fig = px.bar(subset, x='Season', y='Pts', color_discrete_sequence=['#00843d'], title=f'Number of Points Over Time For {game_type}')
+  bar_fig = px.bar(subset, x='Season', y='Pts', color_discrete_sequence=['#00843d'], title=f'Number of Points Over Time For {game_type} Games')
   return bar_fig
 
 # run app
