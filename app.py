@@ -3,6 +3,7 @@ import dash
 from dash.dependencies import Input, Output, State
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+import pandas as pd
 
 ##### Initiate the app
 
