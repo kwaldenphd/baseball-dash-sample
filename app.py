@@ -16,17 +16,17 @@ server = app.server
 # load schedule data from url
 schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
 
-# setup dropdown for game type
-type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home')
-
 # set colors/style
 colors = {
     'background': '#0c2340',
     'text': '#c99700'
 }
 
+# setup dropdown for game type
+type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home')
+
 # setup layout
-app.layout = html.Div(style={'backgroundColor': colors['background]}, 
+app.layout = html.Div(style={'backgroundColor': colors['background']}, 
                       children=[
                                 html.H1(
                                     children='Notre Dame Football Schedule Dashboard',
@@ -40,6 +40,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background]},
                                           dcc.Graph(id = 'schedule-points'),
                                           ])
                                 ])
+
 # set up callback for interactivity
 @app.callback(
     Output(component_id = 'schedule-points', component_property='figure'), 
