@@ -18,6 +18,7 @@ ipython-genutils
 itsdangerous
 Jinja2
 jupyter-core
+jupyter-dash
 MarkupSafe
 nbformat
 numpy
