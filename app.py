@@ -21,6 +21,9 @@ schedule['Datetime'] = pd.to_datetime(schedule['Standardized_Date'])
 # make new datatime column the index
 schedule.set_index(['Datetime'], inplace=True)
 
+# subset data for games after 1938
+subset = schedule[schedule['Season'] >= 1938)]
+
 # set colors/style
 colors = {
     'background': '#0c2340',
@@ -29,13 +32,13 @@ colors = {
 }
 
 # setup dropdown for game type
-type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home')
+type_dropdown = dcc.Dropdown(options=subset['Game_Type'].unique(), value='Home')
 
 # setup layout
 app.layout = html.Div(
     html.Div(
         children = [
-            html.H1("Explore Notre Dame Football Schedules", style={'color':colors['green'], 'font':'Arial'}),
+            html.H1("Explore Notre Dame Football Schedules", style={'color':colors['background'], 'font':'Arial'}),
             html.Label('Choose Game Type:'),
             type_dropdown,
             dcc.Graph(id = 'schedule-points'),
@@ -52,8 +55,8 @@ app.layout = html.Div(
 
 # setup function to generate plot
 def update_graph(game_type):
-  subset = schedule[schedule['Game_Type'] == game_type]
-  bar_fig = px.bar(subset, x='Season', y='Pts', color='Conf', title=f'Number of Points Over Time For {game_type} Games', hover_name = 'Standardized_Date', hover_data=['Standardized_Opponent'])
+  subset2 = subset[subset['Game_Type'] == game_type]
+  bar_fig = px.bar(subset2, x='Season', y='Pts', color='Conf', title=f'Number of Points Over Time For {game_type} Games', hover_name = 'Standardized_Date', hover_data=['Standardized_Opponent'])
   return bar_fig
 
 ##### run app
