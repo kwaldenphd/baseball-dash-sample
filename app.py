@@ -22,7 +22,7 @@ schedule['Datetime'] = pd.to_datetime(schedule['Standardized_Date'])
 schedule.set_index(['Datetime'], inplace=True)
 
 # subset data for games after 1938
-subset = schedule[schedule['Season'] >= 1938)]
+subset = schedule[schedule['Season'] >= 1938]
 
 # set colors/style
 colors = {
