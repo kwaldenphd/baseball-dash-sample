@@ -1,4 +1,12 @@
-# How to deploy a simple Plotly Dash app on Heroku
+# Sample Dash App
+
+[Click here](https://walden-dash-example.herokuapp.com/) to view the finished app on [Heroku](https://heroku.com/).
+
+This repository is cloned from [austinlassiter's](https://github.com/austinlasseter) template and tutorial: "[How to deploy a simple Plotly Dash app on Heroku](https://github.com/austinlasseter/flying-dog-beers)"
+
+Additional information/documentation from that tutorial:
+
+**How to deploy a simple Plotly Dash app on Heroku**
 
 * You can view the finished app on [Heroku](https://flying-dog.herokuapp.com/).
 * Take a moment to read my [Medium post about how to deploying this app](https://austinlasseter.medium.com/deploy-a-plotly-dash-app-on-heroku-4d2c3224230)
@@ -8,7 +16,7 @@
 * The `assets` folder contains a file called `favicon.ico` -- you can find and download customized favicons [here](https://www.favicon.cc/). Just replace the current favicon with a new one.
 
 
-### Additional Reading
+**Additional Reading**
 * Plotly’s [Dash deployment guide](https://dash.plotly.com/deployment)
 * Heroku’s [deployment guide](https://devcenter.heroku.com/articles/getting-started-with-python)
 * Fantastic [blog post](https://towardsdatascience.com/deploying-your-dash-app-to-heroku-the-magical-guide-39bd6a0c586c) that dives deep
