@@ -6,40 +6,43 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 
 ##### Initiate the app
-
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__)
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
+app.title = "#NotreDameWillChangeYouIfYouLetIt"
 
 ##### Load Data and Setup Layout
-
 # load schedule data from url
 schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
+
+# create datetime object from Standardized_Date field
+schedule['Datetime'] = pd.to_datetime(schedule['Standardized_Date'])
+
+# make new datatime column the index
+schedule.set_index(['Datetime'], inplace=True)
 
 # set colors/style
 colors = {
     'background': '#0c2340',
-    'text': '#c99700'
+    'text': '#c99700',
+    'green': '#00843d'
 }
 
 # setup dropdown for game type
 type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home')
 
 # setup layout
-app.layout = html.Div(style={'backgroundColor': colors['background']}, 
-                      children=[
-                                html.H1(
-                                    children='Notre Dame Football Schedule Dashboard',
-                                    style = {
-                                        'textAlign': 'center',
-                                        'color' : colors['text'],
-                                        'font': 'Arial'
-                                    }),
-                                html.Div([
-                                          type_dropdown,
-                                          dcc.Graph(id = 'schedule-points'),
-                                          ])
-                                ])
+app.layout = html.Div(
+    html.Div(
+        children = [
+            html.H1("Explore Notre Dame Football Schedules", style={'color':colors['background'], 'font':'Arial'}),
+            html.Label('Choose Game Type:'),
+            type_dropdown,
+            dcc.Graph(id = 'schedule-points'),
+            html.A('Code on GitHub', href="https://github.com/kwaldenphd/sample-dash-app", style={'color':colors['text']}),
+            html.Br(),
+            html.A('Data Source', href="https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules", style={'color':colors['text']})
+        ]))
 
 # set up callback for interactivity
 @app.callback(
@@ -50,9 +53,9 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
 # setup function to generate plot
 def update_graph(game_type):
   subset = schedule[schedule['Game_Type'] == game_type]
-  bar_fig = px.bar(subset, x='Season', y='Pts', color_discrete_sequence=['#00843d'], title=f'Number of Points Over Time For {game_type} Games')
+  bar_fig = px.bar(subset, x='Season', y='Pts', color_discrete_sequence=['#00843d'], title=f'Number of Points Over Time For {game_type} Games', hover_name = 'Standardized_Date', hover_data=['Standardized_Opponent'])
   return bar_fig
 
-# run app
+##### run app
 if __name__ == '__main__':
     app.run_server(debug=True)
