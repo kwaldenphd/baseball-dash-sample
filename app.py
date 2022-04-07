@@ -53,7 +53,7 @@ app.layout = html.Div(
 # setup function to generate plot
 def update_graph(opponent):
   subset = schedule[schedule['Standardized_Opponent'] == opponent]
-  bar_fig = px.bar(subset, x='Season', y='Pts', color='Game_Type', color_discrete_map={'Home': '#00843d', 'Neutral': '#c99700', 'Away': '#0c2340'}, title=f'Number of Points Over Time For Games Played Versus {opponent}', hover_name = 'Standardized_Date', hover_data=['Combined_Location'])
+  bar_fig = px.bar(subset, x='Season', y='Pts', color='Game_Type', color_discrete_map={'Home': '#00843d', 'Neutral': '#c99700', 'Away': '#0c2340'}, title=f'Number of Points Over Time For Games Played Versus {opponent}', hover_name = 'Standardized_Date', hover_data=['Opp', 'Combined_Location'])
   bar_fig.update_xaxes(tickmode='linear', tickformat='c', tickangle=75)
   return bar_fig
 
