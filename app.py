@@ -54,7 +54,7 @@ app.layout = html.Div(
 def update_graph(opponent):
   subset = schedule[schedule['Standardized_Opponent'] == opponent]
   bar_fig = px.bar(subset, x='Season', y='Pts', color='Game_Type', color_discrete_map={'Home': '#00843d', 'Neutral': '#c99700', 'Away': '#0c2340'}, title=f'Number of Points Over Time For Games Played Versus {opponent}', hover_name = 'Standardized_Date', hover_data=['Opp'])
-  bar_fig.update_xaxes(type='category', tickformat='c', tickangle=50)
+  bar_fig.update_xaxes(type='category', categoryorder='category ascending', tickangle=50)
   return bar_fig
 
 ##### run app
