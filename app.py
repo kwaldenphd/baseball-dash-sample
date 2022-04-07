@@ -39,9 +39,9 @@ app.layout = html.Div(
     html.Div(
         children = [
             html.H1("Explore Notre Dame Football Schedules", style={'color':colors['background'], 'font':'Arial'}),
-            dcc.Graph(id = 'schedule-points'),
             html.Label('Choose Game Type:'),
             type_dropdown,
+            dcc.Graph(id = 'schedule-points'),
             html.A('Code on GitHub', href="https://github.com/kwaldenphd/sample-dash-app", style={'color':colors['green']}),
             html.Br(),
             html.A('Data Source', href="https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules", style={'color':colors['green']})
