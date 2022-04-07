@@ -35,7 +35,7 @@ type_dropdown = dcc.Dropdown(options=schedule['Game_Type'].unique(), value='Home
 app.layout = html.Div(
     html.Div(
         children = [
-            html.H1("Explore Notre Dame Football Schedules", style={'color':colors['background'], 'font':'Arial'}),
+            html.H1("Explore Notre Dame Football Schedules", style={'color':colors['green'], 'font':'Arial'}),
             html.Label('Choose Game Type:'),
             type_dropdown,
             dcc.Graph(id = 'schedule-points'),
