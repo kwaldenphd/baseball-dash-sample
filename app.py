@@ -29,9 +29,11 @@ app.layout = html.Div(
             html.Label('Choose Franchise: '),
             type_dropdown,
             dcc.Graph(id = 'teams'),
-            html.A('Code on GitHub', href="https://github.com/kwaldenphd/baseball-dash-sample"),
+            html.A('Data Source', href="baseball-reference.com/"),
             html.Br(),
-            html.A('Data Source', href="https://github.com/kwaldenphd/baseball-dash-sample/blob/main/team-total-time.csv")
+            html.A('Data File', href="https://github.com/kwaldenphd/baseball-dash-sample/blob/main/team-total-time.csv"),
+            html.Br(),
+            html.A('Code on GitHub', href="https://github.com/kwaldenphd/baseball-dash-sample"),
         ]))
 
 # set up callback for interactivity
