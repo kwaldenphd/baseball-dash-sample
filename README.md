@@ -1,7 +1,7 @@
 # Sample Dash App
 
 Sample Dash app deployed through [Heroku](https://heroku.com/), using Major and Minor League team data from [Baseball Reference](baseball-reference.com/)
-- [Click here](https://www.baseball-reference.com/) to view the finished app on Heroku
+- [Click here](http://walden-dash-baseball-example.herokuapp.com/) to view the finished app on Heroku
 
 This repository is cloned from [austinlassiter's](https://github.com/austinlasseter) template and tutorial: "[How to deploy a simple Plotly Dash app on Heroku](https://github.com/austinlasseter/flying-dog-beers)"
 
