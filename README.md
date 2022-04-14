@@ -1,7 +1,7 @@
 # Sample Dash App
 
-Sample Dash app deployed through [Heroku](https://heroku.com/), using Notre Dame Football schedule data (from [College Football Reference](https://www.sports-reference.com/cfb/schools/notre-dame/))
-- [Click here](https://walden-dash-example.herokuapp.com/) to view the finished app on Heroku
+Sample Dash app deployed through [Heroku](https://heroku.com/), using Major and Minor League team data from [Baseball Reference](baseball-reference.com/)
+- [Click here](https://www.baseball-reference.com/) to view the finished app on Heroku
 
 This repository is cloned from [austinlassiter's](https://github.com/austinlasseter) template and tutorial: "[How to deploy a simple Plotly Dash app on Heroku](https://github.com/austinlasseter/flying-dog-beers)"
 
