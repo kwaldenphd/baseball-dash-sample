@@ -41,11 +41,11 @@ app.layout = html.Div(
 
 # setup function to generate plot
 def update_graph(affiliation):
-  subset = teams[(teams['affiliation'] == affiliation) & (teams['season'] >= 1920) & (teams['season'] < 2020)]
+  subset = teams[teams['affiliation'] == affiliation)]
   fig = px.bar(subset, x='season', y = 'number', color='level', 
                category_orders = {'level': ['MLB', 'AAA', 'AA', 'A+', 'A', 'A-', 'Rk', 'FRk', 'Other']}, 
                labels = {'affiliation': 'Major League Franchise', 'number': 'Number of Teams', 'season':'Season', 'level': 'Level'}, 
-               hover_name = 'level', title= 'Number of Major and Minor League Teams By Franchise', color_discrete_sequence=px.colors.qualitative.Vivid)
+               hover_name = 'level', title= 'Number of Major and Minor League Teams By Franchise', color_discrete_sequence=[px.colors.qualitative.Bold[0], px.colors.qualitative.Bold[1], px.colors.qualitative.Bold[2], px.colors.qualitative.Bold[4], px.colors.qualitative.Bold[5], px.colors.qualitative.Bold[6], px.colors.qualitative.Bold[7], px.colors.qualitative.Bold[10])
   fig.update_yaxes(title = 'Total Number of Teams')
   return fig
 
