@@ -26,6 +26,8 @@ app.layout = html.Div(
             html.Label('Choose Franchise: '),
             type_dropdown,
             dcc.Graph(id = 'teams'),
+            html.P('NOTE: Data does not include Minor League teams classified under the pre-1963 classification schema. Seasons covered: 1920-2020.'),
+            html.Br(),
             html.A('Code on GitHub', href="https://github.com/kwaldenphd/baseball-dash-sample"),
             html.Br(),
             html.A('Data Source', href="https://github.com/kwaldenphd/baseball-dash-sample/blob/main/team-total-time.csv")
@@ -39,7 +41,7 @@ app.layout = html.Div(
 
 # setup function to generate plot
 def update_graph(affiliation):
-  subset = teams[(teams['affiliation'] == affiliation) & (teams['season'] >= 1920) & (teams['season'] < 2020)]
+  subset = teams[(teams['affiliation'] == affiliation) & (teams['season'] >= 1920) & (teams['season'] < 2020) & (teams['level'] != 'Other']
   fig = px.bar(subset, x='season', y = 'number', color='level', 
                category_orders = {'level': ['MLB', 'AAA', 'AA', 'A+', 'A', 'A-', 'Rk', 'FRk', 'Other']}, 
                labels = {'affiliation': 'Major League Franchise', 'number': 'Number of Teams', 'season':'Season', 'level': 'Level'}, 
