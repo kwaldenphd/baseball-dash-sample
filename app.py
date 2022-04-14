@@ -16,7 +16,7 @@ app.title = "Baseball Team Explorer"
 teams = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/baseball-dash-sample/main/team-total-time.csv")
 
 # set list of colors
-colors = [px.colors.qualitative.Bold[0], px.colors.qualitative.Bold[1], px.colors.qualitative.Bold[2], px.colors.qualitative.Bold[3], px.colors.qualitative.Bold[4], px.colors.qualitative.Bold[5], px.colors.qualitative.Bold[6], px.colors.qualitative.Bold[7], px.colors.qualitative.Bold[10]]
+color = [px.colors.qualitative.Bold[0], px.colors.qualitative.Bold[1], px.colors.qualitative.Bold[2], px.colors.qualitative.Bold[3], px.colors.qualitative.Bold[4], px.colors.qualitative.Bold[5], px.colors.qualitative.Bold[6], px.colors.qualitative.Bold[7], px.colors.qualitative.Bold[10]]
 
 # setup dropdown for game type
 type_dropdown = dcc.Dropdown(options= teams['affiliation'].sort_values(ascending=True).unique(), value='STL')
@@ -42,7 +42,7 @@ app.layout = html.Div(
 
 # setup function to generate plot
 def update_graph(affiliation):
-  subset = teams[teams['affiliation'] == affiliation)]
+  subset = teams[teams['affiliation'] == affiliation]
   fig = px.bar(subset, x='season', y = 'number', color='level', 
                category_orders = {'level': ['MLB', 'AAA', 'AA', 'A+', 'A', 'A-', 'Rk', 'FRk', 'Other']}, 
                labels = {'affiliation': 'Major League Franchise', 'number': 'Number of Teams', 'season':'Season', 'level': 'Level'}, 
