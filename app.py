@@ -9,53 +9,43 @@ import pandas as pd
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-app.title = "#NotreDameWillChangeYouIfYouLetIt"
+app.title = "Baseball Team Explorer"
 
 ##### Load Data and Setup Layout
-# load schedule data from url
-schedule = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/more-with-matplotlib/main/data/combined_nd_schedules_cleaned.csv")
-
-# create datetime object from Standardized_Date field
-schedule['Datetime'] = pd.to_datetime(schedule['Standardized_Date'])
-
-# make new datatime column the index
-schedule.set_index(['Datetime'], inplace=True)
-
-# set colors/style
-colors = {
-    'background': '#0c2340',
-    'text': '#c99700',
-    'green': '#00843d'
-}
+# load data
+teams = pd.read_csv("https://raw.githubusercontent.com/kwaldenphd/baseball-dash-sample/main/team-total-time.csv")
 
 # setup dropdown for game type
-type_dropdown = dcc.Dropdown(options=schedule['Standardized_Opponent'].sort_values(ascending=True).unique(), value='Navy')
+type_dropdown = dcc.Dropdown(options= teams['affiliation'].sort_values(ascending=True).unique(), value='STL')
 
 # setup layout
 app.layout = html.Div(
     html.Div(
         children = [
-            html.H1("Explore Notre Dame Football Schedules", style={'color':colors['background'], 'font':'Arial'}),
-            html.Label('Choose Opponent:'),
+            html.H1("Explore Number of Major and Minor League Teams by Franchise Over Time"),
+            html.Label('Choose Franchise: '),
             type_dropdown,
-            dcc.Graph(id = 'schedule-points'),
-            html.A('Code on GitHub', href="https://github.com/kwaldenphd/sample-dash-app", style={'color':colors['text']}),
+            dcc.Graph(id = 'teams'),
+            html.A('Code on GitHub', href="https://github.com/kwaldenphd/baseball-dash-sample"),
             html.Br(),
-            html.A('Data Source', href="https://github.com/kwaldenphd/football-structured-data/blob/main/background.md#football-schedules", style={'color':colors['text']})
+            html.A('Data Source', href="https://github.com/kwaldenphd/baseball-dash-sample/blob/main/team-total-time.csv")
         ]))
 
 # set up callback for interactivity
 @app.callback(
-    Output(component_id = 'schedule-points', component_property='figure'), 
+    Output(component_id = 'teams', component_property='figure'), 
     Input(component_id = type_dropdown, component_property='value')
 )
 
 # setup function to generate plot
-def update_graph(opponent):
-  subset = schedule[schedule['Standardized_Opponent'] == opponent]
-  bar_fig = px.bar(subset, x='Season', y='Pts', color='Game_Type', color_discrete_map={'Home': '#00843d', 'Neutral': '#c99700', 'Away': '#0c2340'}, title=f'Number of Points Over Time For Games Played Versus {opponent}', hover_name = 'Standardized_Date', hover_data=['Opp'])
-  bar_fig.update_xaxes(type='category', categoryorder='category ascending', tickangle=50)
-  return bar_fig
+def update_graph(affiliation):
+  subset = teams[(teams['affiliation'] == affiliation) & (teams['season'] >= 1920) & (teams['season'] < 2020) & (teams['level'] != 'Other')]
+  fig = px.bar(subset, x='season', y = 'number', color='level', 
+               category_orders = {'level': ['MLB', 'AAA', 'AA', 'A+', 'A', 'A-', 'Rk', 'FRk', 'Other']}, 
+               labels = {'affiliation': 'Major League Franchise', 'number': 'Number of Teams', 'season':'Season', 'level': 'Level'}, 
+               hover_name = 'level', title= 'Number of Major and Minor League Teams By Franchise', color_discrete_sequence=px.colors.qualitative.Bold)
+  fig.update_yaxes(title = 'Total Number of Teams')
+  return fig
 
 ##### run app
 if __name__ == '__main__':
