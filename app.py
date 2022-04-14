@@ -29,8 +29,6 @@ app.layout = html.Div(
             html.Label('Choose Franchise: '),
             type_dropdown,
             dcc.Graph(id = 'teams'),
-            html.P('NOTE: Data does not include Minor League teams classified under the pre-1963 classification schema. Seasons covered: 1920-2020.'),
-            html.Br(),
             html.A('Code on GitHub', href="https://github.com/kwaldenphd/baseball-dash-sample"),
             html.Br(),
             html.A('Data Source', href="https://github.com/kwaldenphd/baseball-dash-sample/blob/main/team-total-time.csv")
