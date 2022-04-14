@@ -47,7 +47,7 @@ def update_graph(affiliation):
                category_orders = {'level': ['MLB', 'AAA', 'AA', 'A+', 'A', 'A-', 'Rk', 'FRk', 'Other']}, 
                labels = {'affiliation': 'Major League Franchise', 'number': 'Number of Teams', 'season':'Season', 'level': 'Level'}, 
                hover_name = 'level', title= 'Number of Major and Minor League Teams By Franchise', 
-               color_discrete_sequence=colors)
+               color_discrete_sequence=color)
   fig.update_yaxes(title = 'Total Number of Teams')
   return fig
 
